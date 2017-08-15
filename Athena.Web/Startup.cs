@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Athena.Core;
+using Athena.Data;
+using LiteDB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +26,12 @@ namespace Athena.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var database = new LiteDB.LiteDatabase("data.db");
             // Add framework services.
             services.AddMvc();
+
+            services.AddTransient(s => new LiteDatabase("data.db"));
+            services.AddTransient<IUserStore>(s => new UserStore(s.GetService<LiteDatabase>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
