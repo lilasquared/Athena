@@ -6,8 +6,9 @@ namespace Athena.Core
 {
     public interface IUserStore
     {
-        void Save(User user);
+        User Get(Int32 id);
         IEnumerable<User> GetAll();
         Boolean Contains(Expression<Func<User, Boolean>> predicate);
+        void Save(User user);
     }
 }

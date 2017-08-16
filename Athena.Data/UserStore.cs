@@ -31,5 +31,10 @@ namespace Athena.Data
 
             return true;
         }
+
+        public User Get(Int32 id)
+        {
+            return _users.FindById(id);
+        }
     }
 }

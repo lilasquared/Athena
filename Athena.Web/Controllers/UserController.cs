@@ -20,17 +20,25 @@ namespace Athena.Web.Controllers
             return Json(_userStore.GetAll());
         }
 
+        [HttpGet]
+        [Route("api/users/{userId:int}")]
+        public IActionResult GetUser(Int32 userId)
+        {
+            return Json(_userStore.Get(userId));
+        }
+
         [HttpPost]
         [Route("api/users")]
         public IActionResult SaveUser([FromBody] User user)
         {
-            if (_userStore.Contains(u => u.Username == user.Username)) {
+            if (_userStore.Contains(u => u.Username == user.Username))
+            {
                 throw new Exception($"A user with name {user.Username} already exists.");
             }
 
             _userStore.Save(user);
 
-            return Ok();
+            return Created($"/api/users/{user.Id}", user);
         }
     }
 }

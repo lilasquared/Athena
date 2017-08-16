@@ -1,0 +1,48 @@
+@model Athena.Web.Models.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h1>Register</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control form-control-lg", placeholder = "username" })
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="form-group">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", placeholder = "password" })
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="form-group">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-control-lg", placeholder = "confirm" })
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-lg", placeholder = "email" })
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </div>
+        </div>
+    </div>
+}

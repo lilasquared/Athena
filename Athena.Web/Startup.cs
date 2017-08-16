@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Athena.Web
 {
@@ -26,9 +27,15 @@ namespace Athena.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var database = new LiteDB.LiteDatabase("data.db");
             // Add framework services.
             services.AddMvc();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(config =>
+            {
+                config.IdleTimeout = TimeSpan.FromMinutes(30);
+                config.CookieHttpOnly = true;
+            });
 
             services.AddTransient(s => new LiteDatabase("data.db"));
             services.AddTransient<IUserStore>(s => new UserStore(s.GetService<LiteDatabase>()));
@@ -52,6 +59,7 @@ namespace Athena.Web
 
             app.UseStaticFiles();
 
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

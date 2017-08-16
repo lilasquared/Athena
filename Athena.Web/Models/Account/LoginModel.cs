@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Athena.Web.Models
+namespace Athena.Web.Models.Account
 {
     public class LoginModel
     {
